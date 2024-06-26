@@ -30,6 +30,7 @@ impl Database {
         // Database 结构体包含了文件名和文件句柄
         let file = OpenOptions::new()
             .create(true) // 设置为写入模式
+            .read(true)
             .write(true)
             .open(filename)
             .unwrap();
