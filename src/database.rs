@@ -3,6 +3,7 @@
 use std::fs::{self, File, OpenOptions};
 use std::io::{BufRead, BufReader, Seek, Write};
 // 定义一个结构体 Record 用于表示数据库中的记录
+#[derive(Debug)]
 pub struct Record {
     pub id: i32,
     pub content: String,
@@ -14,6 +15,7 @@ pub struct Database {
     pub filename: String,
     pub file: File,
 }
+
 // 实现 Database 结构体的方法
 impl Database {
     // open 方法用于打开一个数据库文件
@@ -43,7 +45,6 @@ impl Database {
         // use std::io::Write;
         // write! 用于将格式化的字符串写入文件 返回一个 Result 对象 
         writeln!(self.file, "{}", line).unwrap();
-        println!("📒Item added :{}", record.content)
     }
     // read_record 方法用于读取数据库中的所有记录
     pub fn read_record(&mut self) -> Vec<Record> {
@@ -53,7 +54,7 @@ impl Database {
         // map_while() 用于将 Result 对象转换为 Option 对象
         // filter() 用于过滤空行
         // map() 用于将每一行转换为 Record 对象
-        // collect() 用于将迭代器转换为一个 Vec 对象
+        // collect() 用于将迭代器转换为一个 Vec 对象);
         file.lines()
             .map_while(Result::ok)
             .filter(|l| !l.is_empty())
@@ -104,6 +105,7 @@ impl Database {
 }
 // 用于将字符串转换为 Record 对象
 pub fn parse_record_line(line: &str) -> Record {
+    println!("line:{}", line);
     // split() 用于将字符串分割成一个字符串切片的迭代器
     let fields: Vec<&str> = line.split(",").collect();
     // 如果只有一个字段，则返回一个只有 content 字段的 Record 对象
