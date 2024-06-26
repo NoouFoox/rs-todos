@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 # 使用 derive 特性
 clap = { version = "4.5.7", features = ["derive"] }
+dirs = "5.0.1"
